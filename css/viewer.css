@@ -1,0 +1,682 @@
+html, body {
+height: 100%;
+width: 100%;
+margin: 0;
+padding: 0;
+background: #555;
+font-family:Pt Sans, serif;
+color:black;	
+}
+
+#mapProgressBar {
+background: url("../images/progressBarAnim.gif") repeat-x scroll center center #CAD2DE;
+border: 1px solid #A2A2A2;
+display: none;
+height: 20px;
+left: 0;
+position: absolute;
+top: 0;
+width: 300px;
+z-index: 101;
+}
+
+#baseMapOption {
+display: block;
+height: 25px;
+position: absolute;
+top: 0;
+right: 0;
+width: 250px;
+z-index: 101;
+padding:5px;
+}
+
+#topDiv{
+padding:0px; margin: 1px;
+}
+
+#titleDiv {
+/*background:#000 url(../images/title_gradient.png) repeat-x left top;*/
+background:#000;
+margin:0px 0px 0px 0px; 
+border:solid 1px silver;
+padding:5px 0px 5px 20px;
+height:70px;
+color:#fff;
+font-size:11pt;
+}
+
+#titleImage{
+position:relative;
+width:350px;
+float:left;
+margin:2px 0px 0px 0px;
+}
+
+#titleText{
+position:absolute;
+width: 350px;
+top: 55px;
+right: 15px;
+font-size:9pt;
+text-align:right;
+color:#fff;
+}
+
+#mapDiv{
+margin:1px;
+border:solid 1px silver;
+padding:0px;
+background-color:#fff;
+text-align:left;
+overflow:hidden;
+}
+
+#footerDiv {
+background:#000;
+height:20px;
+margin:1px;
+border:solid 1px silver;
+font-size:10px;
+text-align:right; 
+color:#fff; 
+padding:5px 10px 0px 0px;
+}
+
+#searchheader {
+position:relative;
+font-size:14px;
+font-weight:bold;
+padding:0px 0px 5px 0px;
+margin:0px 0px 5px 0px;
+color: #ccc;
+cursor:pointer;
+cursor:hand;
+height:"27px";
+}
+
+#toggleSearch{
+float:"left";
+}
+
+#toggleSearchImage, #showTableButton, #showChartButton{
+float:right;
+margin:2px 8px 0px 0px;
+}
+
+#colorToggle{
+height:16px;
+width:17px;
+cursor:pointer;
+cursor:hand; 
+text-align:center;
+float:right;
+margin:2px 8px 0px 0px;
+}
+
+#reset{
+float:right; 
+margin:0px 8px 0px 0px
+}
+
+#search{
+border-top:1px solid #ccc;
+margin-bottom:10px;
+padding-top:5px;
+}
+
+#filterDiv {
+position:relative;
+display:none;
+padding:5px 15px 10px 15px;
+background-color:rgb(60,60,60);
+border:1px dotted #6a6a6a;
+margin-bottom:10px;
+}
+
+#filterDiv div{
+width:100%;
+}
+
+#filterToggleTd {
+height:22px; 
+width:22px; 
+cursor:pointer; 
+cursor:hand; 
+text-align:center;
+}
+
+.searchDropDown {
+width:100%;
+margin-top:5px;
+}
+
+.filter {
+font-size:9pt;
+color:#ccc;
+margin-bottom:2px;
+}
+
+#dataHelp{
+position:relative;
+width:20px;
+float:left;
+margin:0px 0px 0px 0px;
+padding:7px 0px 0px 7px;
+}
+
+#dataCategory{
+position:relative;
+width:222px;
+float:left;
+}
+
+#methodSelector{
+position:relative;
+font-size:7.5pt;
+margin-bottom:5px;
+vertical-align:middle;
+}
+
+#timeSliderDiv {
+margin: 5px 0px 0px 0px;
+}
+
+#timeSliderLabels{
+position:absolute;
+width:250px;
+height:12px;
+bottom:16px;
+text-align:center;
+}
+
+.timeSliderLabel{
+position:absolute;
+color: #CCCCCC;
+font-size: 0.6em;
+width: 25px;
+text-align:center;
+}
+
+#label_9-10 {
+left: -1px;
+}
+
+#label_10-11 {
+left: 112px;
+}
+
+#label_11-12 {
+left: 228px;
+}
+
+.dataTooltipContainer{
+font-size:9pt;
+width:400px;
+}
+
+.dataHeader{
+font-weight:bold;
+color:rgb(60,60,60);
+}
+
+.dataSubHeader{
+font-weight:bold;
+color:rgb(60,60,60);
+}
+
+.dataDivision{
+font-style:italic;
+font-weight:bold;
+}
+
+#legendDiv {
+text-align:center;
+}
+
+#legendheader {
+font-size:9.5pt;
+margin:0px 0px 5px 0px;
+}
+
+.legend_subheader {
+font-size:8pt;
+}
+
+#legendfooter, #legendfooter2{
+margin-top:4px;
+font-size:7.5pt;
+text-align:center;
+}
+
+#legend {
+color:white;
+font-size:8pt;
+text-align:left;
+margin-left:auto;
+margin-right:auto;
+width:50%;
+}
+
+#chartDiv {
+width:250px;
+text-align:center;
+opacity:1.0;
+filter:alpha(opacity=100); /* For IE8 and earlier */
+}
+
+#chartTitle {
+font-size:9.5pt;
+}
+
+#chart {
+width:250px;
+}
+
+#chartfooter{
+margin-top:0px;
+font-size:7.5pt;
+text-align:center;
+}
+
+.maptooltip {
+border-radius: 4px 4px 4px 4px;
+padding: 5px;
+position: absolute;
+width: 100px;
+z-index: 9999;
+text-align:center;
+font:normal normal normal 8pt Arial;
+color: white;
+background-color: #000000;
+border: 1px solid #ffffff;
+opacity:0.8;
+filter:alpha(opacity=80); /* For IE8 and earlier */
+ box-shadow: 2px 2px 6px #6a6a6a;
+ -moz-box-shadow: 2px 2px 6px #6a6a6a;
+-webkit-box-shadow: 2px 2px 6px #6a6a6a;
+-o-box-shadow: 2px 2px 6px #6a6a6a;
+}
+
+#zoomHeader {
+margin:10px 0px 0px 0px;
+padding: 10px 0px 0px 0px;
+height:16px;
+font-variant:small-caps;
+border-top: 1px solid #ccc;
+}
+
+#zoomTaskDiv {
+padding:4px 4px 4px 4px;
+font-size:7.5pt;
+font-variant:small-caps;
+}
+
+.zoomRadioLabel{
+margin:0px 4px 0px 0px;
+}
+
+a:link{
+	color: #fff;
+	text-decoration:none;
+}
+
+a:hover{
+	color: #CA5D5D;
+}
+
+a:visited{
+	color: #fff;
+	text-decoration:none;
+}
+
+#zoomHeader a:link{
+	color: #333;
+}
+
+#zoomHeader a:hover{
+	color: #CA5D5D;
+}
+
+#zoomHeader a:visited{
+	color: #333;
+}
+
+
+#legendContentDiv, #chartContentDiv, #searchContentDiv {
+position:absolute;
+width:240px;
+border-radius: 8px;
+-moz-border-radius: 8px;
+-webkit-border-radius: 8px;
+-o-border-radius: 8px;
+box-shadow: 2px 2px 6px #6a6a6a;
+-moz-box-shadow: 2px 2px 6px #6a6a6a;
+-webkit-box-shadow: 2px 2px 6px #6a6a6a;
+-o-box-shadow: 2px 2px 6px #6a6a6a;
+z-index: 101;
+margin:5px;
+color: #fff;
+background: #000;
+border: none;
+padding: 10px;
+overflow: hidden;
+}
+
+#searchContentDiv {
+width:250px;
+top:50px;
+right:22px;
+font-size:15px;
+display:none;
+}
+
+#legendContentDiv{
+top:10px;
+left:10px;
+display: none;
+}
+
+#chartContentDiv{
+top:10px;
+left:10px;
+display: none;
+}
+
+#baseMapOptionDiv {
+display:none;
+position: absolute;
+width:110px;
+top: 10px;
+right: 185px;
+z-index: 102;
+}
+
+#baseMapSelector{
+position:relative;
+top:0px;
+left:0px;
+width:30px;
+height:30px;
+cursor:pointer;
+cursor:hand;
+background:#000 url("../images/basemapIcon_off-out.png") no-repeat center center;
+border-radius: 6px;
+-moz-border-radius: 6px;
+-webkit-border-radius: 6px;
+}
+
+#baseMapSelectorOptions{
+margin-top:10px;
+position:relative;
+left: -5px;
+width:120px;
+background:#000;
+color:#fff;
+padding:7px 0px 7px 0px;
+border-radius: 6px;
+-moz-border-radius: 6px;
+-webkit-border-radius: 6px;
+-o-border-radius: 6px;
+ box-shadow: 2px 2px 6px #6a6a6a;
+ -moz-box-shadow: 2px 2px 6px #6a6a6a;
+-webkit-box-shadow: 2px 2px 6px #6a6a6a;
+-o-box-shadow: 2px 2px 6px #6a6a6a;
+}
+
+#baseMapToolTip{
+position:absolute;
+width:12px;
+height:10px;
+top:-8px;
+left:13px;
+background:url("../images/tooltip_point.png") no-repeat top center;
+}
+
+.baseMapOption {
+height:22px;
+background-color:#000;
+padding:8px 5px 0px 8px;
+cursor:pointer;
+cursor:hand;
+font-size: 8pt; 
+}
+
+.baseMapOptionHovered {
+height:22px;
+background-color:#111;
+padding:8px 5px 0px 8px;
+cursor:pointer;
+cursor:hand;
+font-size: 8pt; 
+}
+
+.baseMapOptionImg {
+position: relative;
+left:0px;
+top:-5px;
+width:24px;
+height:24px;
+border-radius: 4px;
+-moz-border-radius: 4px;
+-webkit-border-radius: 4px;
+-o-border-radius: 4px;
+float:left;
+margin:0px 8px 0px 0px;
+}
+
+#basic_img{
+background:url("../images/basic.png") no-repeat center center;
+}
+
+#satellite_img{
+background:url("../images/satellite.png") no-repeat center center;
+}
+
+#street_img{
+background:url("../images/street.png") no-repeat center center;
+}
+
+#zoomToolsDiv {
+position:absolute;
+width:80px;
+height:32px;
+right: 20px;
+top: 10px;
+display:none;
+z-index: 105;
+cursor:hand;
+}
+
+#zoomInToolDiv, #zoomOutToolDiv, #zoomFullToolDiv , #overviewDiv, #zoomNavToolDiv, #chartToolDiv, #tableToolDiv, #legendToolDiv {
+position:relative;
+width:30px;
+height:30px;
+margin: 0px 8px 0px 0px;
+float:right;
+cursor:pointer;
+cursor:hand;
+border-radius: 6px;
+-moz-border-radius: 6px;
+-webkit-border-radius: 6px;
+-o-border-radius: 6px;
+}
+
+#zoomNavToolDiv {
+background:#000;
+}
+
+#zoomInIncrementDiv, #zoomOutIncrementDiv {
+width:30px;
+height:15px;
+}
+
+#zoomInIncrementDiv {
+border-bottom: 1px solid #ccc;
+background:url("../images/zoomInIcon-out.png") no-repeat center center;
+}
+
+#zoomOutIncrementDiv {
+background:url("../images/zoomOutIcon-out.png") no-repeat center center;
+}
+
+#zoomInToolDiv {
+background:#000 url("../images/zoomInToolIcon-out.png") no-repeat center center;
+}
+
+#zoomFullToolDiv {
+background:#000 url("../images/resetIcon-out.png") no-repeat center center;
+}
+
+#chartToolDiv {
+position:absolute;
+clear:both;
+right: 97px;
+top: 10px;
+background:#000 url("../images/chartIcon_off-out.png") no-repeat center center;
+z-index: 104;
+display:none;
+}
+
+#legendToolDiv {
+position:absolute;
+clear:both;
+right: 137px;
+top: 10px;
+background:#000 url("../images/legendIcon_off-out.png") no-repeat center center;
+z-index: 104;
+display:none;
+}
+
+#tableToolDiv {
+position:absolute;
+clear:both;
+right: 177px;
+top: 10px;
+background:#000 url("../images/tableIcon_off-out.png") no-repeat center center;
+z-index: 104;
+display:none;
+}
+
+#colorOptionDiv {
+display:none;
+position: absolute;
+width:150px;
+top: 10px;
+right:105px;
+z-index: 103;
+}
+
+#colorOptions {
+width:130px;
+}
+
+#colorToolDiv {
+position: relative;
+top:0px;
+left:0px;
+width:30px;
+height:30px;
+cursor:pointer;
+cursor:hand;
+border-radius: 6px;
+-moz-border-radius: 6px;
+-webkit-border-radius: 6px;
+-o-border-radius: 6px;
+background:#000 url("../images/colorIcon_off-out.png") no-repeat center center;
+}
+
+#colorSelectorOptions{
+position: relative;
+margin-top:10px;
+left: -5px;
+width:130px;
+background:#000;
+color:#fff;
+padding:7px 7px 7px 10px;
+border-radius: 6px;
+-moz-border-radius: 6px;
+-webkit-border-radius: 6px;
+-o-border-radius: 6px;
+ box-shadow: 2px 2px 6px #6a6a6a;
+ -moz-box-shadow: 2px 2px 6px #6a6a6a;
+-webkit-box-shadow: 2px 2px 6px #6a6a6a;
+-o-box-shadow: 2px 2px 6px #6a6a6a;
+}
+
+#colorToolTip{
+position:absolute;
+width:12px;
+height:10px;
+top:-8px;
+left:13px;
+background:url("../images/tooltip_point.png") no-repeat top center;
+}
+
+#colorSelector td{
+text-align:center;
+padding:7px;
+background-color:none;
+}
+
+.colorOption {
+background-color:#000;
+cursor:pointer;
+cursor:hand;
+}
+
+.colorOptionHovered {
+background-color:#111;
+cursor:pointer;
+cursor:hand;
+}
+
+/*ESRI, Dojo overrides*/
+.tundra .dijitTooltipContainer {
+border-radius: 4px;
+-moz-border-radius: 4px;
+-webkit-border-radius: 4px;
+-o-border-radius: 4px;
+border:1px solid #666;
+color:#666;
+font-size:12px;
+padding:5px;
+box-shadow: 2px 2px 6px #6a6a6a;
+-moz-box-shadow: 2px 2px 6px #6a6a6a;
+-webkit-box-shadow: 2px 2px 6px #6a6a6a;
+-o-box-shadow: 2px 2px 6px #6a6a6a;
+max-width:300px;
+}
+
+.dj_webkit .tundra .dijitTooltipContainer {
+-webkit-box-shadow: 2px 2px 6px #6a6a6a;
+}
+
+.tundra .dijitTooltipBelow .dijitTooltipConnector {
+background:url(../images/tooltip_below.png) no-repeat 6px 6px;
+}
+
+.tundra .dijitTooltipRight .dijitTooltipConnector {
+background:url(../images/tooltip.png) no-repeat 7px 2px;
+}
+
+.tundra .dijitTooltipLeft .dijitTooltipConnector {
+background:url(../images/tooltip_left.png) no-repeat 0px 2px;
+}
+
+.tundra .dijitTooltipAbove .dijitTooltipConnector {
+background:url(../images/tooltip_above.png) no-repeat 7px -1px;
+background:"url(../images/tooltip_above.png) no-repeat 7px 2px";
+}
+
+#timeSliderDiv .dijitRuleMark {
+border: 1px solid #ccc !important;
+}
+
+.esriPopup .title {
+width:87%;
+padding:4px 2px;
+line-height: 105%;
+font-variant: small-caps;
+font-size: 10pt;
+}

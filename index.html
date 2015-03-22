@@ -1,0 +1,208 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=7,IE=9" />
+<title>California Dropout Research Project Map App</title>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="http://js.arcgis.com/3.7/js/esri/css/esri.css">
+<link rel="stylesheet" href="http://js.arcgis.com/3.7/js/dojo/dijit/themes/tundra/tundra.css">
+<link rel="stylesheet" type="text/css" href="css/viewer.css">
+<link rel="stylesheet" type="text/css" href="css/grid.css">
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-55114518-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<script type="text/javascript">
+var djConfig = { 	parseOnLoad: true,
+					gfxRenderer: "svg,silverlight,vml" // svg is first priority 
+				};
+</script>
+<script src="http://js.arcgis.com/3.7/"></script>
+<script type="text/javascript" src="js/jenks.util.js"></script>
+<script type="text/javascript" src="js/geostats.js"></script>
+<script type="text/javascript" src="js/themes.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" language="Javascript">
+dojo.addOnLoad(init)
+</script>
+</head>
+<body class="tundra">
+	<div dojotype="dijit.layout.BorderContainer" design="headline" gutters="false" style="width:100%; height:100%;">
+		
+		<!-- Header Pane (top) -->
+		<div id="topDiv" dojotype="dijit.layout.ContentPane" region="top">
+			<!-- Title Pane -->
+			<div id="titleDiv">
+				<div id="titleImage"><img src="images/logo3.png"></div>
+				<div id="titleText">
+					<a href="http://ucsb.edu" target="_blank">UC Santa Barbara</a> | <a href="http://education.ucsb.edu" target="_blank">Gevirtz Graduate School of Education</a>
+				</div>
+			</div>
+		</div>
+		<div id="mapProgressBar"></div>
+		<!-- Map Pane (center) -->
+		<div id="centerDiv" dojotype="dijit.layout.BorderContainer" region="center" gutters="false">
+			<div id="mapDiv" dojotype="dijit.layout.ContentPane" region="center">
+				<div id="zoomToolsDiv">
+					<div  id="zoomNavToolDiv">
+						<div id="zoomInIncrementDiv" onmouseover="toolHover(this.id,'over')" onmouseout="toolHover(this.id,'out')"></div>
+						<div id="zoomOutIncrementDiv" onmouseover="toolHover(this.id,'over')" onmouseout="toolHover(this.id,'out')"></div>
+					</div>
+					<div id="zoomFullToolDiv" onmouseover="toolHover(this.id,'over')" onmouseout="toolHover(this.id,'out')"></div>
+				</div>
+				<div id="chartToolDiv" onclick="showDialog('chartContentDiv');toggleToolState(this.id);showChartDiv();" onmouseover="toolHover(this.id,'over')" onmouseout="toolHover(this.id,'out')"></div>
+				<div id="legendToolDiv" onclick="showDialog('legendContentDiv');toggleToolState(this.id);" onmouseover="toolHover(this.id,'over')" onmouseout="toolHover(this.id,'out')"></div>
+				<div id="tableToolDiv" onclick="createDataTable();toggleToolState(this.id);" onmouseover="toolHover(this.id,'over')" onmouseout="toolHover(this.id,'out')"></div>
+				
+				<div id="colorOptionDiv">
+					<div id="colorToolDiv" onclick="colorSelectorToggle();" onmouseover="toolHover(this.id,'over')" onmouseout="toolHover(this.id,'out')"></div>
+					<div id="colorSelectorOptions" style="display:none;">
+							<div id="colorToolTip"></div>
+							<div id="colorOptions">
+								<table id="colorSelector">
+									<tr>
+										<td id="orGnTheme" onmouseover="hover(this, 'colorOptionHovered');" onmouseout="hover(this, 'colorOption');" onclick="setColorSymbology(orGnTheme,'orGn')"><img id="orGn" src="images/ColorBrewerImages/orGn.png"></td>
+										<td id="buOrTheme" onmouseover="hover(this, 'colorOptionHovered');" onmouseout="hover(this, 'colorOption');" onclick="setColorSymbology(buOrTheme,'buOr')"><img id="buOr" src="images/ColorBrewerImages/buOr.png"></td>
+										<td id="rdGyBuTheme" onmouseover="hover(this, 'colorOptionHovered');" onmouseout="hover(this, 'colorOption');" onclick="setColorSymbology(rdGyBuTheme,'rdGyBu');"><img id="rdGyBu" src="images/ColorBrewerImages/rdGyBu.png"></td>
+										<td id="rdGyTheme" onmouseover="hover(this, 'colorOptionHovered');" onmouseout="hover(this, 'colorOption');" onclick="setColorSymbology(rdGyTheme,'rdGy')"><img id="rdGy" src="images/ColorBrewerImages/rdGy.png"></td>
+									</tr>
+									<tr>								
+										<td id="rdBuTheme" onmouseover="hover(this, 'colorOptionHovered');" onmouseout="hover(this, 'colorOption');" onclick="setColorSymbology(rdBuTheme,'rdBu')"><img id="rdBu" src="images/ColorBrewerImages/rdBu.png"></td>
+										<td id="rdYlBuTheme" onmouseover="hover(this, 'colorOptionHovered');" onmouseout="hover(this, 'colorOption');" onclick="setColorSymbology(rdYlBuTheme,'rdYlBu')"><img id="rdYlBu" src="images/ColorBrewerImages/rdYlBu.png"></td>
+										<td id="rdYlGnTheme" onmouseover="hover(this, 'colorOptionHovered');" onmouseout="hover(this, 'colorOption');" onclick="setColorSymbology(rdYlGnTheme,'rdYlGn');"><img id="rdYlGn" src="images/ColorBrewerImages/rdYlGn.png"></td>
+										<td id="piYgTheme" onmouseover="hover(this, 'colorOptionHovered');" onmouseout="hover(this, 'colorOption');" onclick="setColorSymbology(piYgTheme,'piYg')"><img id="piYg" src="images/ColorBrewerImages/piYg.png"></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+				</div>
+				<div id="baseMapOptionDiv">
+					<div id="baseMapSelector" onclick="baseMapSelectorToggle();" onmouseover="toolHover(this.id,'over')" onmouseout="toolHover(this.id,'out')"></div>
+					<div id="baseMapSelectorOptions" style="display:none;">
+						<div id="baseMapToolTip"></div>
+						<div id="Basic" class="baseMapOption" onclick="changeBaseMap(this,grayLayer);" onmouseover="hover(this, 'baseMapOptionHovered');" onmouseout="hover(this, 'baseMapOption');"><div id="basic_img" class="baseMapOptionImg"></div>Basic</div>
+						<div id="Satellite" class="baseMapOption" onclick="changeBaseMap(this,imageryLayer);" onmouseover="hover(this, 'baseMapOptionHovered');" onmouseout="hover(this, 'baseMapOption');"><div id="satellite_img" class="baseMapOptionImg"></div>Satellite</div>
+						<div id="Street" class="baseMapOption" onclick="changeBaseMap(this, streetsLayer);" onmouseover="hover(this, 'baseMapOptionHovered');" onmouseout="hover(this, 'baseMapOption');"><div id="street_img" class="baseMapOptionImg"></div>Streets</div>
+					</div>
+				</div>
+				
+				
+				<!-- Legend Pane -->
+				<div id="legendContentDiv">
+					<div id="legendDiv"></div>
+				</div>
+				
+				<!-- Chart Pane -->
+				<div id="chartContentDiv">
+					<div id="chartDiv">
+						<div>
+							<div id="chartTitle"></div>
+							<div id="chart"></div>
+							<div id="chartfooter"></div>
+						</div>	
+					</div>
+				</div>
+				
+				<!-- Search Pane -->
+				<div id="searchContentDiv">
+					<div id="searchDiv">
+						<div id="searchheader">
+							<span id="toggleSearch" ondblclick="toggleTaskBar()">Create a map</span>
+							<img id="toggleSearchImage" src="images/toggle-expanded.png" onclick="toggleTaskBar();">
+							<!-- <img id="reset" src="images/reset.png" onclick="resetMap();"> -->
+							<!-- <img id="colorToggle" src="images/ColorBrewerImages/rdBu.png" onclick="toggleColorSelector()"> -->
+							<!-- <img id="showChartButton" src="images/chart.png" onclick="toggleDataChart();"> -->
+							<!-- <img id="showTableButton" src="images/table.png" onclick="createDataTable();"> -->
+							<div style="clear:both;"></div>	
+						</div>
+						<div id="search">
+							<div style="margin-bottom:10px;">
+								<span class="filter">choose a layer:</span>
+								<select class="searchDropDown" name="layer" id="layer" onChange="updateSubgroupOptions();updateLayerVisibility(this.value);">
+									<option value="schools">School</option>
+									<option value="Secondary">Secondary School District</option>
+									<option value="Unified">Unified School District</option>
+									<option value="districts">Secondary/Unified School District</option>
+									<option value="counties" selected="selected">County</option>
+								</select>
+							</div>
+							<div style="margin-bottom:10px;">
+								<span class="filter">choose an outcome:</span>
+								<div id="dataCategory">
+									<select class="searchDropDown" name="category" id="category" onChange="updateLayerSymbology();updateTooltipText(this.value)">
+										<option value="CohortGraduationRate" selected="selected">Cohort Graduation Rate</option>
+										<option value="CohortDropoutRate">Cohort Dropout Rate</option>
+										<option value="StillEnrolledRate">Still Enrolled Rate</option>
+										<option value="SpecialEdCompletersRate">Special Education Completers Rate</option>
+										<option value="GEDRate">GED Rate</option>
+									</select>
+								</div>
+								<div id="dataHelp">
+									<img src="images/help.png">
+								</div>
+								<div style="clear:both;"></div>						
+							</div>
+							<div style="margin-bottom:10px;">
+								<span class="filter">choose a group, program to filter by:</span>
+								<select class="searchDropDown" name="subgroup" id="subgroup" onChange="updateSubtypeOptions();updateLayerSymbology();">
+									<option value="All" selected="selected">All</option>
+									<option value="FEM">Female</option>
+									<option value="MAL">Male</option>
+									<option value="EL">English Learners</option>
+									<option value="MIG">Migrant Education</option>
+									<option value="SD">Socioeconomically Disadvantaged</option>
+									<option value="SE">Special Education</option>
+								</select>
+							</div>						
+							<div style="margin-bottom:10px;">
+								<span class="filter">choose a race, ethnicity to filter by:</span>
+								<select class="searchDropDown" name="subtype" id="subtype" onChange="updateLayerSymbology()">
+									<option value="All" selected="selected">All</option>
+									<option value="0">Not Reported</option>
+									<option value="1">American Indian/Alaskan Native</option>
+									<option value="2">Asian</option>
+									<option value="3">Pacific Islander</option>
+									<option value="4">Filipino</option>
+									<option value="5">Hispanic or Latino </option>
+									<option value="6">African American</option>
+									<option value="7">White</option>
+									<option value="9">Two or more races, not Hispanic</option>
+								</select>
+							</div>
+							<div id="timeInfo" style="margin-bottom:10px;">
+								<div class="filter">choose a year to filter by:</div>
+								<div id="timeSliderDiv"></div>
+								<div id="timeSliderLabels">
+									<div id="label_9-10" class="timeSliderLabel">9-10</div>
+									<div id="label_10-11" class="timeSliderLabel">10-11</div>
+									<div id="label_11-12" class="timeSliderLabel">11-12</div>
+								</div>
+							</div>				
+						</div>
+					</div>
+				</div>				
+				
+				<!-- grid (table) container -->
+				<div id="gridContainer">
+					<div id="gridHandle" ondblclick="closeResultGrid()">
+						<div id="gridForm">
+							<div id="gridTitle">Results Table</div>
+							<div id="closeGrid" onclick="closeResultGrid()"></div>
+						</div>	
+					</div>
+					<div id="gridContent"></div>	
+				</div>
+				
+			</div>
+		</div>
+		<!-- Footer Pane (bottom) -->
+		<div id="footerDiv" dojotype="dijit.layout.ContentPane" region="bottom" >built by the <a href="http://spatial.cisr.ucsc.edu" target="_blank">center for integrated spatial research (cisr)</a> @ <a href="http://ucsc.edu" target="_blank">ucsc</a></div>
+	</div>
+</body>
+</html>
